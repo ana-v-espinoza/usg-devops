@@ -17,7 +17,20 @@ info () {
   echo "[ INFO ] $(date "+%Y-%m-%d %H:%M") -- $@"
 }
 
-source /home/openstack/openrc.sh
+# print date
+error () {
+  echo "[ ERROR ] $(date "+%Y-%m-%d %H:%M") -- $@"
+}
+
+# Ensure host and container UIDs match; otherwise, you'd run into permissions issues from ssh, git, mkdir, etc.
+if [[ "$(id -u)" -ne "$BUILD_UID" ]]
+then
+  error "Host UID ($(id -u)) does not match container's BUILD_UID ($(echo $BUILD_UID))"
+  error "Please rebuild docker image using the following flag: --build-arg BUILD_UID=$(id -u)"
+  exit 1
+fi
+
+source /home/ubuntu/openrc.sh
 
 ############### Run image builder ###############
 

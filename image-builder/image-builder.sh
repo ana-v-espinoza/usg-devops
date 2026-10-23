@@ -163,7 +163,7 @@ docker run -it \
   -e SSH_KEY_FILE \
   -u $(id -u) \
   -v $LOG_DIR:/image-builder-log \
-  -v $ROLES_DIR:/home/openstack/image-builder/images/capi/ansible/roles/$NODE_CUSTOM_ROLES_POST \
-  -v $SSH_KEY_FILE:/home/openstack/.ssh/id_ed25519_packer \
-  -v $OPENRC_PATH:/home/openstack/openrc.sh \
+  -v $ROLES_DIR:/home/ubuntu/image-builder/images/capi/ansible/roles/$NODE_CUSTOM_ROLES_POST \
+  -v $SSH_KEY_FILE:/home/ubuntu/.ssh/id_ed25519_packer \
+  -v $OPENRC_PATH:/home/ubuntu/openrc.sh \
   unidata/image-builder:${DOCKER_IMAGE_TAG}
