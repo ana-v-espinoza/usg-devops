@@ -153,7 +153,7 @@ mkdir -p $LOG_DIR
 #   Bind mount ssh key file
 #   Bind mount roles dir
 #   Set env vars with -e option to docker run
-docker run -t \
+docker run -it \
   --name $IMAGE_NAME \
   -e PACKER_LOG=1 \
   -e PACKER_LOG_PATH=/image-builder-log/packer_debug.log \

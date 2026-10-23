@@ -9,7 +9,7 @@ set -o pipefail
 # log function
 RUN_LOG_DIR="/image-builder-log"
 log () {
-  tee -a $RUN_LOG_DIR/run.log
+  tee --ignore-interrupts -a $RUN_LOG_DIR/run.log
 }
 
 # print date
