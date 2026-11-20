@@ -3,11 +3,21 @@
     name: "kernel.yama.ptrace_scope"
     value: 2
     sysctl_file: /etc/sysctl.d/10-ptrace.conf
-- name: Unpack modprobe config files
-  ansible.builtin.unarchive:
-    src: ../files/security.tar
-    dest: /etc/modprobe.d
-    list_files: true
+
+- name: Copy blacklist-act-pedit.conf
+  ansible.builtin.copy:
+    src: ../files/blacklist-act-pedit.conf
+    dest: /etc/modprobe.d/blacklist-act-pedit.conf
+
+- name: Copy dirtyfrag.conf
+  ansible.builtin.copy:
+    src: ../files/dirtyfrag.conf
+    dest: /etc/modprobe.d/dirtyfrag.conf
+
+- name: Copy disable-cifs.conf
+  ansible.builtin.copy:
+    src: ../files/disable-cifs.conf
+    dest: /etc/modprobe.d/disable-cifs.conf
 
 - name: Check if nfs-common is needed
   raw: which mount.nfs
