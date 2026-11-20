@@ -142,7 +142,7 @@ export OPENRC_PATH=$(realpath $OPENRC_PATH) \
 # This must be fixed
 export \
   IMAGE_NAME=${IMAGE_NAME:-"$IMAGE_NAME_BASE-$IMAGE_NAME_SUFFIX"} \
-  ROLES_DIR=$(pwd)/roles/$NODE_CUSTOM_ROLES_POST
+  ROLES_DIR=$(pwd)/roles/
   LOG_DIR=$(pwd)/logs/$IMAGE_NAME
 
 # Ensure base log dir exists
@@ -163,7 +163,7 @@ docker run -it \
   -e SSH_KEY_FILE \
   -u $(id -u) \
   -v $LOG_DIR:/image-builder-log \
-  -v $ROLES_DIR:/home/ubuntu/image-builder/images/capi/ansible/roles/$NODE_CUSTOM_ROLES_POST \
+  -v $ROLES_DIR:/custom-roles \
   -v $SSH_KEY_FILE:/home/ubuntu/.ssh/id_ed25519_packer \
   -v $OPENRC_PATH:/home/ubuntu/openrc.sh \
   unidata/image-builder:${DOCKER_IMAGE_TAG}

@@ -12,7 +12,8 @@ RUN apt update && apt upgrade -y && \
     ca-certificates gnupg \
     python3-openstackclient python3-magnumclient \
     python3-octaviaclient python3-designate && \
-    apt clean && rm -rf /var/lib/apt/lists/*
+    apt clean && rm -rf /var/lib/apt/lists/* && \
+    mkdir /custom-roles
 
 USER ubuntu
 
