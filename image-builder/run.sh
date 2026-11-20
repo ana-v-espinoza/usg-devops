@@ -53,6 +53,7 @@ info "Searching for custom ansible roles in $ROLES_DIR" | log
 list_dirs() {
   find $1 -type d \
     -maxdepth 1 \
+    -not -wholename $1 \
     -exec realpath {} \; \
     2>/dev/null
 }
