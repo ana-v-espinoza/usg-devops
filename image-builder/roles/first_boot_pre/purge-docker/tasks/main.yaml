@@ -1,0 +1,35 @@
+# https://gitlab.com/jetstream-cloud/general/image-build-pipeline/-/blob/main/ansible/roles/docker/tasks/Ubuntu.yml?ref_type=heads
+- name: Remove docker package
+  ansible.builtin.apt:
+    name:
+    - docker.io
+    - docker-compose-v2
+    state: absent
+
+- name: Flush iptables chains of rules
+  ansible.builtin.iptables:
+    flush: true
+    table: "{{ item }}"
+  with_items: [ 'filter', 'nat', 'mangle', 'raw', 'security']
+
+# https://docs.docker.com/engine/network/firewall-iptables/
+- name: Delete Docker chains in the filter table
+  ansible.builtin.iptables:
+    table: filter
+    chain_management: true
+    chain: "{{ item }}"
+    state: absent
+  with_items:
+  - DOCKER
+  - DOCKER-BRIDGE
+  - DOCKER-CT
+  - DOCKER-FORWARD
+  - DOCKER-INTERNAL
+  - DOCKER-USER
+
+- name: Delete Docker chains in the nat table
+  ansible.builtin.iptables:
+    table: nat
+    chain_management: true
+    chain: DOCKER
+    state: absent
